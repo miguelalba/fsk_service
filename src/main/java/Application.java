@@ -60,7 +60,9 @@ class Application {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String responseText = "";
+
+            // length 0 to send a variable amount of data (1 or many items)
+            exchange.sendResponseHeaders(200, 0);
 
             String query = exchange.getRequestURI().getQuery();
             if (query != null) {
@@ -71,7 +73,9 @@ class Application {
                     try {
                         String id = params.get("id");
                         Right right = crud.getRight(id);
-                        responseText = mapper.writeValueAsString(right);
+                        try (OutputStream output = exchange.getResponseBody()) {
+                            mapper.writeValue(output, right);
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -80,16 +84,12 @@ class Application {
                 // Return all the rights
                 try {
                     Right[] rights = crud.getRights();
-                    responseText = mapper.writeValueAsString(rights);
+                    try (OutputStream output = exchange.getResponseBody()) {
+                        mapper.writeValue(output, rights);
+                    }
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...
                 }
-            }
-
-            exchange.sendResponseHeaders(200, responseText.getBytes().length);
-            try (OutputStream output = exchange.getResponseBody()) {
-                output.write(responseText.getBytes());
-                output.flush();
             }
 
             exchange.close();
@@ -108,7 +108,9 @@ class Application {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String responseText = "";
+
+            // length 0 to send a variable amount of data (1 or many items)
+            exchange.sendResponseHeaders(200, 0);
 
             String query = exchange.getRequestURI().getQuery();
             if (query != null) {
@@ -121,7 +123,9 @@ class Application {
                     try {
                         int id = Integer.parseInt(params.get("id"));
                         Source source = crud.getSource(id);
-                        responseText = mapper.writeValueAsString(source);
+                        try (OutputStream output = exchange.getResponseBody()) {
+                            mapper.writeValue(output, source);
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -130,16 +134,12 @@ class Application {
                 // Return all the sources
                 try {
                     Source[] sources = crud.getSources();
-                    responseText = mapper.writeValueAsString(sources);
+                    try (OutputStream output = exchange.getResponseBody()) {
+                        mapper.writeValue(output, sources);
+                    }
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...
                 }
-            }
-
-            exchange.sendResponseHeaders(200, responseText.getBytes().length);
-            try (OutputStream output = exchange.getResponseBody()) {
-                output.write(responseText.getBytes());
-                output.flush();
             }
 
             exchange.close();
