@@ -1,18 +1,18 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import domain.Right;
+import domain.Source;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import domain.*;
 
 class Application {
 
@@ -20,7 +20,7 @@ class Application {
 
         // Starts DB
         final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
-        initDB(connection);
+        final Crud crud = new Crud(connection);
 
         int serverPort = 8000;
 
@@ -28,8 +28,8 @@ class Application {
 
         final ObjectMapper mapper = new ObjectMapper();
 
-        server.createContext("/api/rights", new RightHandler(mapper, connection));
-        server.createContext("/api/sources", new SourceHandler(mapper, connection));
+        server.createContext("/api/rights", new RightHandler(mapper, crud));
+        server.createContext("/api/sources", new SourceHandler(mapper, crud));
 
         server.setExecutor(null); // Creates a default executor
         server.start();
@@ -51,11 +51,11 @@ class Application {
     private static class RightHandler implements HttpHandler {
 
         private final ObjectMapper mapper;
-        private final Connection connection;
+        private final Crud crud;
 
-        RightHandler(ObjectMapper mapper, Connection connection) {
+        RightHandler(ObjectMapper mapper, Crud crud) {
             this.mapper = mapper;
-            this.connection = connection;
+            this.crud = crud;
         }
 
         @Override
@@ -70,7 +70,7 @@ class Application {
                 if (params.containsKey("id")) {
                     try {
                         String id = params.get("id");
-                        Right right = getRight(connection, id);
+                        Right right = crud.getRight(id);
                         responseText = mapper.writeValueAsString(right);
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -79,7 +79,7 @@ class Application {
             } else {
                 // Return all the rights
                 try {
-                    Right[] rights = getRights(connection);
+                    Right[] rights = crud.getRights();
                     responseText = mapper.writeValueAsString(rights);
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...
@@ -99,11 +99,11 @@ class Application {
     private static class SourceHandler implements HttpHandler {
 
         private final ObjectMapper mapper;
-        private final Connection connection;
+        private final Crud crud;
 
-        SourceHandler(ObjectMapper mapper, Connection connection) {
+        SourceHandler(ObjectMapper mapper, Crud crud) {
             this.mapper = mapper;
-            this.connection = connection;
+            this.crud = crud;
         }
 
         @Override
@@ -120,7 +120,7 @@ class Application {
                 if (params.containsKey("id")) {
                     try {
                         int id = Integer.parseInt(params.get("id"));
-                        Source source = getSource(connection, id);
+                        Source source = crud.getSource(id);
                         responseText = mapper.writeValueAsString(source);
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -129,7 +129,7 @@ class Application {
             } else {
                 // Return all the sources
                 try {
-                    Source[] sources = getSources(connection);
+                    Source[] sources = crud.getSources();
                     responseText = mapper.writeValueAsString(sources);
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...
@@ -143,92 +143,6 @@ class Application {
             }
 
             exchange.close();
-        }
-    }
-
-    private static void initDB(Connection connection) throws SQLException, IOException {
-        Map<String, String> tableFiles = new HashMap<>();
-        tableFiles.put("sources", "sources.sql");
-        tableFiles.put("rights", "rights.sql");
-
-        for (Map.Entry<String, String> entry : tableFiles.entrySet()) {
-            String sourceFile = Application.class.getClassLoader().getResource(entry.getValue()).getFile();
-            String sql = new String(Files.readAllBytes(Paths.get(sourceFile)));
-
-            Statement statement = connection.createStatement();
-            statement.execute(sql);
-
-            String tableName = entry.getKey();
-            int numberOfRows = getRowCount(connection, tableName);
-            System.out.printf("Table %s created with %d rows\n", tableName, numberOfRows);
-        }
-    }
-
-    private static int getRowCount(Connection connection, String table) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT COUNT(1) FROM " + table);
-        resultSet.next();
-
-        return resultSet.getInt(1);
-    }
-
-    private static Source[] getSources(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM sources");
-
-        ArrayList<Source> sourceList = new ArrayList<>();
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String name = resultSet.getString("name");
-            String comment = resultSet.getString("comment");
-
-            sourceList.add(new Source(id, name, comment));
-        }
-
-        return sourceList.toArray(new Source[0]);
-    }
-
-    private static Source getSource(Connection connection, int id) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM sources WHERE id = " + id);
-
-        if (resultSet.next()) {
-            String name = resultSet.getString("name");
-            String comment = resultSet.getString("comment");
-
-            return new Source(id, name, comment);
-        } else {
-            return null;
-        }
-    }
-
-    private static Right[] getRights(Connection connection) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM rights");
-
-        ArrayList<Right> rightList = new ArrayList<>();
-        while (resultSet.next()) {
-            String id = resultSet.getString("id");
-            String name = resultSet.getString("name");
-            String url = resultSet.getString("url");
-
-            rightList.add(new Right(id, name, url));
-        }
-
-        return rightList.toArray(new Right[0]);
-    }
-
-    private static Right getRight(Connection connection, String id) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM rights WHERE id = '" + id + "'");
-
-        if (resultSet.next()) {
-            String name = resultSet.getString("name");
-            String url = resultSet.getString("url");
-
-            return new Right(id, name, url);
-        } else {
-            return null;
         }
     }
 }
