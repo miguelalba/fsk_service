@@ -2,6 +2,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import domain.Availability;
 import domain.Right;
 import domain.Source;
 
@@ -28,6 +29,7 @@ class Application {
 
         final ObjectMapper mapper = new ObjectMapper();
 
+        server.createContext("/api/availability", new AvailabilityHandler(mapper, crud));
         server.createContext("/api/rights", new RightHandler(mapper, crud));
         server.createContext("/api/sources", new SourceHandler(mapper, crud));
 
@@ -46,6 +48,54 @@ class Application {
         }
 
         return params;
+    }
+
+    private static class AvailabilityHandler implements HttpHandler {
+
+        private final ObjectMapper mapper;
+        private final Crud crud;
+
+        AvailabilityHandler(ObjectMapper mapper, Crud crud) {
+            this.mapper = mapper;
+            this.crud = crud;
+        }
+
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+
+            // length 0 to send a variable amount of data (1 or many items)
+            exchange.sendResponseHeaders(200, 0);
+
+            String query = exchange.getRequestURI().getQuery();
+            if (query != null) {
+
+                Map<String, String> params = queryToParams(query);
+
+                if (params.containsKey("id")) {
+                    try {
+                        String id = params.get("id");
+                        Availability right = crud.getAvailability(id);
+                        try (OutputStream output = exchange.getResponseBody()) {
+                            mapper.writeValue(output, right);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                // Return all the rights
+                try {
+                    Availability[] availabilities = crud.getAvailabilities();
+                    try (OutputStream output = exchange.getResponseBody()) {
+                        mapper.writeValue(output, availabilities);
+                    }
+                } catch (SQLException exception) {
+                    exception.printStackTrace(); // TODO: ...
+                }
+            }
+
+            exchange.close();
+        }
     }
 
     private static class RightHandler implements HttpHandler {

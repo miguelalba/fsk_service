@@ -1,3 +1,4 @@
+import domain.Availability;
 import domain.Right;
 import domain.Source;
 
@@ -24,8 +25,9 @@ public class Crud {
 
     private void initDB() throws SQLException, IOException {
         Map<String, String> tableFiles = new HashMap<>();
-        tableFiles.put("sources", "sources.sql");
+        tableFiles.put("availability", "availability.sql");
         tableFiles.put("rights", "rights.sql");
+        tableFiles.put("sources", "sources.sql");
 
         for (Map.Entry<String, String> entry : tableFiles.entrySet()) {
             String sourceFile = Application.class.getClassLoader().getResource(entry.getValue()).getFile();
@@ -103,6 +105,36 @@ public class Crud {
             String url = resultSet.getString("url");
 
             return new Right(id, name, url);
+        } else {
+            return null;
+        }
+    }
+
+    public Availability[] getAvailabilities() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM availability");
+
+        ArrayList<Availability> availabilityList = new ArrayList<>();
+        while (resultSet.next()) {
+            String id = resultSet.getString("id");
+            String name = resultSet.getString("name");
+            String comment = resultSet.getString("comment");
+
+            availabilityList.add(new Availability(id, name, comment));
+        }
+
+        return availabilityList.toArray(new Availability[0]);
+    }
+
+    public Availability getAvailability(String id) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM availability WHERE id = '" + id + "'");
+
+        if (resultSet.next()) {
+            String name = resultSet.getString("name");
+            String comment = resultSet.getString("comment");
+
+            return new Availability(id, name, comment);
         } else {
             return null;
         }
