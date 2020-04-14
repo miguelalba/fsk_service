@@ -3,6 +3,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import domain.Availability;
+import domain.Format;
 import domain.Right;
 import domain.Source;
 
@@ -30,8 +31,9 @@ class Application {
         final ObjectMapper mapper = new ObjectMapper();
 
         server.createContext("/api/availability", new AvailabilityHandler(mapper, crud));
-        server.createContext("/api/rights", new RightHandler(mapper, crud));
-        server.createContext("/api/sources", new SourceHandler(mapper, crud));
+        server.createContext("/api/format", new FormatHandler(mapper, crud));
+        server.createContext("/api/right", new RightHandler(mapper, crud));
+        server.createContext("/api/source", new SourceHandler(mapper, crud));
 
         server.setExecutor(null); // Creates a default executor
         server.start();
@@ -186,6 +188,56 @@ class Application {
                     Source[] sources = crud.getSources();
                     try (OutputStream output = exchange.getResponseBody()) {
                         mapper.writeValue(output, sources);
+                    }
+                } catch (SQLException exception) {
+                    exception.printStackTrace(); // TODO: ...
+                }
+            }
+
+            exchange.close();
+        }
+    }
+
+    private static class FormatHandler implements HttpHandler {
+
+        private final ObjectMapper mapper;
+        private final Crud crud;
+
+        FormatHandler(ObjectMapper mapper, Crud crud) {
+            this.mapper = mapper;
+            this.crud = crud;
+        }
+
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+
+            // length 0 to send a variable amount of data (1 or many items)
+            exchange.sendResponseHeaders(200, 0);
+
+            String query = exchange.getRequestURI().getQuery();
+            if (query != null) {
+
+                Map<String, String> params = queryToParams(query);
+
+                // If an id is passed then only return the Source with that id. If other parameter is passed, ignore it
+                // and return all the sources.
+                if (params.containsKey("id")) {
+                    try {
+                        String id = params.get("id");
+                        Format format = crud.getFormat(id);
+                        try (OutputStream output = exchange.getResponseBody()) {
+                            mapper.writeValue(output, format);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                // Return all the sources
+                try {
+                    Format[] formats = crud.getFormats();
+                    try (OutputStream output = exchange.getResponseBody()) {
+                        mapper.writeValue(output, formats);
                     }
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...

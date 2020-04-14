@@ -9,7 +9,9 @@ An embedded H2 databased create at the user folder with name test is exposed by 
 | ---- | ----------- |
 | /api/availability | Return all the availabilities in DB. |
 | /api/availability?id=:id | Return the availability with passed id. |
-| /api/rights | Return all the rights in DB. |
-| /api/rights?id=:id | Return the right with passed id. |
-| /api/sources | Return all sources in DB. |
-| /api/sources?id=:id | Return the source with passed id. |
+| /api/format | Return all the formats in DB. |
+| /api/format?id=:id | Return the format with passed id. |
+| /api/right | Return all the rights in DB. |
+| /api/right?id=:id | Return the right with passed id. |
+| /api/source | Return all sources in DB. |
+| /api/source?id=:id | Return the source with passed id. |

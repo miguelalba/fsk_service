@@ -1,4 +1,5 @@
 import domain.Availability;
+import domain.Format;
 import domain.Right;
 import domain.Source;
 
@@ -26,6 +27,7 @@ public class Crud {
     private void initDB() throws SQLException, IOException {
         Map<String, String> tableFiles = new HashMap<>();
         tableFiles.put("availability", "availability.sql");
+        tableFiles.put("format", "format.sql");
         tableFiles.put("rights", "rights.sql");
         tableFiles.put("sources", "sources.sql");
 
@@ -135,6 +137,36 @@ public class Crud {
             String comment = resultSet.getString("comment");
 
             return new Availability(id, name, comment);
+        } else {
+            return null;
+        }
+    }
+
+    public Format[] getFormats() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM format");
+
+        ArrayList<Format> formatList = new ArrayList<>();
+        while (resultSet.next()) {
+            String id = resultSet.getString("id");
+            String name = resultSet.getString("name");
+            String comment = resultSet.getString("comment");
+
+            formatList.add(new Format(id, name, comment));
+        }
+
+        return formatList.toArray(new Format[0]);
+    }
+
+    public Format getFormat(String id) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM format WHERE id = '" + id + "'");
+
+        if (resultSet.next()) {
+            String name = resultSet.getString("name");
+            String comment = resultSet.getString("comment");
+
+            return new Format(id, name, comment);
         } else {
             return null;
         }
