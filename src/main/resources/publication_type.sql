@@ -1,0 +1,62 @@
+CREATE TABLE publication_type(
+    id VARCHAR(50) not NULL,
+    shortName VARCHAR(10) not NULL,
+    fullName VARCHAR(255) not NULL,
+    PRIMARY KEY (id));
+
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_2', 'ABST', 'Abstract');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_3', 'AGGR', 'Aggregated Database');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_4', 'ANCIENT', 'Ancient Text');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_5', 'ART', 'Artwork');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_6', 'ADVS', 'Audiovisual Material');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_7', 'BILL', 'Bill');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_8', 'BLOG', 'Blog');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_9', 'BOOK', 'Book');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_10', 'CHAP', 'Book Section');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_11', 'CASE', 'Case');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_12', 'CTLG', 'Catalog');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_13', 'CHART', 'Chart');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_14', 'CLSWK', 'Classical Work');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_15', 'COMP', 'Computer Program');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_16', 'CPAPER', 'Conference Paper');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_17', 'CONF', 'Conference Proceeding');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_18', 'DATA', 'Dataset	');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_19', 'DICT', 'Dictionary');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_20', 'EDBOOK', 'Edited Book');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_23', 'EJOUR', 'Electronic Article');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_21', 'EBOOK', 'Electronic Book');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_22', 'ECHAP', 'Electronic Book Section');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_24', 'ENCYC', 'Encyclopedia');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_25', 'EQUA', 'Equation');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_26', 'FIGURE', 'Figure');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_27', 'MPCT', 'Film or Broadcast');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_28', 'JFULL', 'Full Journal');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_1', 'GEN', 'Generic');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_29', 'GOVDOC', 'Government Document');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_30', 'GRNT', 'Grant');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_31', 'HEAR', 'Hearing');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_32', 'INPR', 'In Press Article');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_33', 'ICOMM', 'Internet Communication');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_34', 'JOUR', 'Journal Article');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_35', 'LEGAL', 'Legal Rule');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_36', 'MGZN', 'Magazine Article');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_37', 'MANSCPT	', 'Manuscript');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_38', 'MAP', 'Map');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_39', 'MUSIC', 'Music');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_40', 'NEWS', 'Newspaper Article');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_41', 'DBASE', 'Online Database');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_42', 'MULTI', 'Online Multimedia');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_43', 'PAMP', 'Pamphlet');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_44', 'PAT', 'Patent');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_45', 'PCOMM', 'Personal Communication');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_46', 'RPRT', 'Report');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_47', 'SER', 'Serial');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_48', 'SLIDE', 'Slide');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_49', 'SOUND', 'Sound Recording');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_50', 'STAND', 'Standard');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_51', 'STAT', 'Statute');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_52', 'THES', 'Thesis');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_53', 'UNBILL', 'Unenacted Bill');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_54', 'UNPD', 'Unpublished Work');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_55', 'VIDEO', 'Video Recording');
+INSERT INTO publication_type (id, shortName, fullName) VALUES ('PublicationType_56', 'ELEC', 'Web Page');

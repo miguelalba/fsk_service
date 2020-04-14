@@ -1,5 +1,6 @@
 import domain.Availability;
 import domain.Format;
+import domain.PublicationType;
 import domain.Right;
 import domain.Source;
 
@@ -28,6 +29,7 @@ public class Crud {
         Map<String, String> tableFiles = new HashMap<>();
         tableFiles.put("availability", "availability.sql");
         tableFiles.put("format", "format.sql");
+        tableFiles.put("publication_type", "publication_type.sql");
         tableFiles.put("rights", "rights.sql");
         tableFiles.put("sources", "sources.sql");
 
@@ -167,6 +169,36 @@ public class Crud {
             String comment = resultSet.getString("comment");
 
             return new Format(id, name, comment);
+        } else {
+            return null;
+        }
+    }
+
+    public PublicationType[] getPublicationTypes() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM publication_type");
+
+        ArrayList<PublicationType> typeList = new ArrayList<>();
+        while (resultSet.next()) {
+            String id = resultSet.getString("id");
+            String shortName = resultSet.getString("shortName");
+            String fullName = resultSet.getString("fullName");
+
+            typeList.add(new PublicationType(id, shortName, fullName));
+        }
+
+        return typeList.toArray(new PublicationType[0]);
+    }
+
+    public PublicationType getPublicationType(String id) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM publication_type WHERE id = '" + id + "'");
+
+        if (resultSet.next()) {
+            String shortName = resultSet.getString("shortName");
+            String fullName = resultSet.getString("fullName");
+
+            return new PublicationType(id, shortName, fullName);
         } else {
             return null;
         }

@@ -1,7 +1,4 @@
-import domain.Availability;
-import domain.Format;
-import domain.Right;
-import domain.Source;
+import domain.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -75,4 +72,14 @@ public class CrudTest {
         assertNotNull(firstSource);
     }
 
+    @Test
+    public void testPublictionTypeEndpoints() throws SQLException {
+
+        PublicationType[] types = crud.getPublicationTypes();
+        assertTrue(types.length > 0);
+
+        String firstTypeId = types[0].getId();
+        PublicationType firstType = crud.getPublicationType(firstTypeId);
+        assertNotNull(firstType);
+    }
 }

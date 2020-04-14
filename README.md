@@ -11,6 +11,8 @@ An embedded H2 databased create at the user folder with name test is exposed by 
 | /api/availability?id=:id | Return the availability with passed id. |
 | /api/format | Return all the formats in DB. |
 | /api/format?id=:id | Return the format with passed id. |
+| /api/publicationtype | Return all the publication types. |
+| /api/publicationtype?id=:id | Return the publication type with passed id. |
 | /api/right | Return all the rights in DB. |
 | /api/right?id=:id | Return the right with passed id. |
 | /api/source | Return all sources in DB. |
