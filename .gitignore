@@ -28,6 +28,10 @@ target
 # Eclipse (Visual Studio Code)
 .settings
 .project
+.vscode
 
 # Mac
 .DS_Store
+
+# IntelliJ
+.idea
