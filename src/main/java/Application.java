@@ -9,7 +9,10 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ class Application {
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
         FormatRepository formatRepository = new FormatRepository(connection);
         LanguageRepository languageRepository = new LanguageRepository(connection);
+        LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
         PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
         RightRepository rightRepository = new RightRepository(connection);
@@ -37,6 +41,7 @@ class Application {
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
         server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
+        server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));
         server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
