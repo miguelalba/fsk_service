@@ -102,4 +102,16 @@ public class RepositoryTest {
         PublicationType firstType = repository.getById(firstTypeId);
         assertNotNull(firstType);
     }
+
+    @Test
+    public void testPublicationStatusEndpoints() throws SQLException {
+
+        PublicationStatusRepository repository = new PublicationStatusRepository(connection);
+        PublicationStatus[] statuses = repository.getAll();
+        assertTrue(statuses.length > 0);
+
+        String firstStatusId = statuses[0].getId();
+        PublicationStatus firstStatus = repository.getById(firstStatusId);
+        assertNotNull(firstStatus);
+    }
 }
