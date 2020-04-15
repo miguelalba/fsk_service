@@ -31,6 +31,7 @@ class Application {
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
         PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
         RightRepository rightRepository = new RightRepository(connection);
+        SoftwareRepository softwareRepository = new SoftwareRepository(connection);
         SourceRepository sourceRepository = new SourceRepository(connection);
 
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
@@ -39,6 +40,7 @@ class Application {
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));
         server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
+        server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
         server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
 
         server.setExecutor(null); // Creates a default executor

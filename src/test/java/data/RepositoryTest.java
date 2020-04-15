@@ -126,4 +126,16 @@ public class RepositoryTest {
         Language firstLanguage = repository.getById(firstLanguageId);
         assertNotNull(firstLanguage);
     }
+
+    @Test
+    public void testSoftwareEndpoints() throws SQLException {
+
+        SoftwareRepository repository = new SoftwareRepository(connection);
+        Software[] softwares = repository.getAll();
+        assertTrue(softwares.length > 0);
+
+        int firstSoftwareId = softwares[0].getId();
+        Software firstSoftware = repository.getById(firstSoftwareId);
+        assertNotNull(firstSoftware);
+    }
 }
