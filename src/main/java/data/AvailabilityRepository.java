@@ -17,7 +17,7 @@ public class AvailabilityRepository implements BasicRepository<Availability> {
     }
 
     @Override
-    public Availability getById(String id) throws SQLException {
+    public Availability getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM availability WHERE id = '" + id + "'");
 
@@ -38,7 +38,7 @@ public class AvailabilityRepository implements BasicRepository<Availability> {
 
         ArrayList<Availability> availabilityList = new ArrayList<>();
         while (resultSet.next()) {
-            String id = resultSet.getString("id");
+            int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String comment = resultSet.getString("comment");
 

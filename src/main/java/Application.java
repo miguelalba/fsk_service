@@ -82,7 +82,7 @@ class Application {
 
                 if (params.containsKey("id")) {
                     try {
-                        String id = params.get("id");
+                        int id = Integer.parseInt(params.get("id"));
                         try (OutputStream output = exchange.getResponseBody()) {
                             mapper.writeValue(output, repository.getById(id));
                         }

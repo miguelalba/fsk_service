@@ -2,16 +2,21 @@ package domain;
 
 public class Language {
 
+    private final int id;
+
     /** ISO 639-1 two-letter code. */
     private final String code;
 
     private final String name;
-    private final String comment;
 
-    public Language(String code, String name, String comment) {
+    public Language(int id, String code, String name) {
+        this.id = id;
         this.code = code;
         this.name = name;
-        this.comment = comment;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCode() {
@@ -20,9 +25,5 @@ public class Language {
 
     public String getName() {
         return name;
-    }
-
-    public String getComment() {
-        return comment;
     }
 }

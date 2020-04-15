@@ -2,17 +2,17 @@ package domain;
 
 public class Format {
 
-    private final String id;
+    private final int id;
     private final String name;
     private final String comment;
 
-    public Format(String id, String name, String comment) {
+    public Format(int id, String name, String comment) {
         this.id = id;
         this.name = name;
         this.comment = comment;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

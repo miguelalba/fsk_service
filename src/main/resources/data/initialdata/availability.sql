@@ -1,11 +1,11 @@
 CREATE TABLE availability (
-    id VARCHAR(50) not NULL,
+    id INTEGER not NULL,
     name VARCHAR(255) not NULL,
     comment VARCHAR(255),
     PRIMARY KEY (id));
 
-INSERT INTO availability (id, name, comment) VALUES ('Availability_2', 'Closed access', '');
-INSERT INTO availability (id, name, comment) VALUES ('Availability_4', 'Embargoed access', '');
-INSERT INTO availability (id, name, comment) VALUES ('Availability_1', 'Open access', '');
-INSERT INTO availability (id, name, comment) VALUES ('Availability_5', 'Other', '');
-INSERT INTO availability (id, name, comment) VALUES ('Availability_3', 'Restricted access', '');
+INSERT INTO availability (id, name, comment) VALUES (1, 'Open access', '');
+INSERT INTO availability (id, name, comment) VALUES (2, 'Closed access', '');
+INSERT INTO availability (id, name, comment) VALUES (3, 'Restricted access', '');
+INSERT INTO availability (id, name, comment) VALUES (4, 'Embargoed access', '');
+INSERT INTO availability (id, name, comment) VALUES (5, 'Other', '');

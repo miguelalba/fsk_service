@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public interface BasicRepository<T> {
 
-    T getById(String id) throws SQLException;
+    T getById(int id) throws SQLException;
 
     T[] getAll() throws SQLException;
 }

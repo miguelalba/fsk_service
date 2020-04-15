@@ -2,22 +2,28 @@ package domain;
 
 public class Right {
 
-    private String id;
-    private String name;
+    private int id;
+    private String shortname;
+    private String fullname;
     private String url;
 
-    public Right(String id, String name, String url) {
+    public Right(int id, String shortname, String fullname, String url) {
         this.id = id;
-        this.name = name;
+        this.shortname = shortname;
+        this.fullname = fullname;
         this.url = url;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getShortname() {
+        return shortname;
+    }
+
+    public String getFullname() {
+        return fullname;
     }
 
     public String getUrl() {

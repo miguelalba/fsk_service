@@ -17,9 +17,9 @@ public class FormatRepository implements BasicRepository<Format> {
     }
 
     @Override
-    public Format getById(String id) throws SQLException {
+    public Format getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM format WHERE id = '" + id + "'");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM format WHERE id = " + id);
 
         if (resultSet.next()) {
             String name = resultSet.getString("name");
@@ -38,7 +38,7 @@ public class FormatRepository implements BasicRepository<Format> {
 
         ArrayList<Format> formatList = new ArrayList<>();
         while (resultSet.next()) {
-            String id = resultSet.getString("id");
+            int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String comment = resultSet.getString("comment");
 

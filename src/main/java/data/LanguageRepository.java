@@ -17,15 +17,15 @@ public class LanguageRepository implements BasicRepository<Language> {
     }
 
     @Override
-    public Language getById(String id) throws SQLException {
+    public Language getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM language WHERE code = '" + id + "'");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM language WHERE id = " + id);
 
         if (resultSet.next()) {
+            String code = resultSet.getString("code");
             String name = resultSet.getString("name");
-            String comment = resultSet.getString("comment");
 
-            return new Language(id, name, comment);
+            return new Language(id, code, name);
         } else {
             return null;
         }
@@ -39,11 +39,11 @@ public class LanguageRepository implements BasicRepository<Language> {
 
         ArrayList<Language> languageList = new ArrayList<>();
         while (resultSet.next()) {
+            int id = resultSet.getInt("id");
             String code = resultSet.getString("code");
             String name = resultSet.getString("name");
-            String comment = resultSet.getString("comment");
 
-            languageList.add(new Language(code, name, comment));
+            languageList.add(new Language(id, code, name));
         }
 
         return languageList.toArray(new Language[0]);

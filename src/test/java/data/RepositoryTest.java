@@ -50,7 +50,7 @@ public class RepositoryTest {
         Availability[] availabilities = repository.getAll();
         assertTrue(availabilities.length > 0);
 
-        String firstAvailabilityId = availabilities[0].getId();
+        int firstAvailabilityId = availabilities[0].getId();
         Availability firstAvailability = repository.getById(firstAvailabilityId);
         assertNotNull(firstAvailability);
     }
@@ -62,7 +62,7 @@ public class RepositoryTest {
         Format[] formats = repository.getAll();
         assertTrue(formats.length > 0);
 
-        String firstFormatId = formats[0].getId();
+        int firstFormatId = formats[0].getId();
         Format firstFormat = repository.getById(firstFormatId);
         assertNotNull(firstFormat);
     }
@@ -74,7 +74,7 @@ public class RepositoryTest {
         Right[] rights = repository.getAll();
         assertTrue(rights.length > 0);
 
-        String firstRightId = rights[0].getId();
+        int firstRightId = rights[0].getId();
         Right firstRight = repository.getById(firstRightId);
         assertNotNull(firstRight);
     }
@@ -86,7 +86,7 @@ public class RepositoryTest {
         Source[] sources = sourceRepository.getAll();
         assertTrue(sources.length > 0);
 
-        String firstSourceId = Integer.toString(sources[0].getId());
+        int firstSourceId = sources[0].getId();
         Source firstSource = sourceRepository.getById(firstSourceId);
         assertNotNull(firstSource);
     }
@@ -98,7 +98,7 @@ public class RepositoryTest {
         PublicationType[] types = repository.getAll();
         assertTrue(types.length > 0);
 
-        String firstTypeId = types[0].getId();
+        int firstTypeId = types[0].getId();
         PublicationType firstType = repository.getById(firstTypeId);
         assertNotNull(firstType);
     }
@@ -110,7 +110,7 @@ public class RepositoryTest {
         PublicationStatus[] statuses = repository.getAll();
         assertTrue(statuses.length > 0);
 
-        String firstStatusId = statuses[0].getId();
+        int firstStatusId = statuses[0].getId();
         PublicationStatus firstStatus = repository.getById(firstStatusId);
         assertNotNull(firstStatus);
     }
@@ -122,8 +122,8 @@ public class RepositoryTest {
         Language[] languages = repository.getAll();
         assertTrue(languages.length > 0);
 
-        String firstLanguageCode = languages[0].getCode();
-        Language firstLanguage = repository.getById(firstLanguageCode);
+        int firstLanguageId = languages[0].getId();
+        Language firstLanguage = repository.getById(firstLanguageId);
         assertNotNull(firstLanguage);
     }
 }

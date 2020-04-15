@@ -2,17 +2,17 @@ package domain;
 
 public class PublicationType {
 
-    private final String id;
+    private final int id;
     private final String shortName;
     private final String fullName;
  
-    public PublicationType(String id, String shortName, String fullName) {
+    public PublicationType(int id, String shortName, String fullName) {
         this.id = id;
         this.shortName = shortName;
         this.fullName = fullName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

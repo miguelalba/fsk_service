@@ -17,7 +17,7 @@ public class SourceRepository implements BasicRepository<Source> {
     }
 
     @Override
-    public Source getById(String id) throws SQLException {
+    public Source getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM sources WHERE id = " + id);
 
@@ -25,7 +25,7 @@ public class SourceRepository implements BasicRepository<Source> {
             String name = resultSet.getString("name");
             String comment = resultSet.getString("comment");
 
-            return new Source(Integer.parseInt(id), name, comment);
+            return new Source(id, name, comment);
         } else {
             return null;
         }

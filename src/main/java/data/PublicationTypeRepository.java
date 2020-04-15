@@ -17,7 +17,7 @@ public class PublicationTypeRepository implements BasicRepository<PublicationTyp
     }
 
     @Override
-    public PublicationType getById(String id) throws SQLException {
+    public PublicationType getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM publication_type WHERE id = '" + id + "'");
 
@@ -38,7 +38,7 @@ public class PublicationTypeRepository implements BasicRepository<PublicationTyp
 
         ArrayList<PublicationType> typeList = new ArrayList<>();
         while (resultSet.next()) {
-            String id = resultSet.getString("id");
+            int id = resultSet.getInt("id");
             String shortName = resultSet.getString("shortName");
             String fullName = resultSet.getString("fullName");
 

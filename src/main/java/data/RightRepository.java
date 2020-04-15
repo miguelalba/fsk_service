@@ -17,15 +17,16 @@ public class RightRepository implements BasicRepository<Right> {
     }
 
     @Override
-    public Right getById(String id) throws SQLException {
+    public Right getById(int id) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM rights WHERE id = '" + id + "'");
 
         if (resultSet.next()) {
-            String name = resultSet.getString("name");
+            String shortname = resultSet.getString("shortname");
+            String fullname = resultSet.getString("fullname");
             String url = resultSet.getString("url");
 
-            return new Right(id, name, url);
+            return new Right(id, shortname, fullname, url);
         } else {
             return null;
         }
@@ -38,11 +39,12 @@ public class RightRepository implements BasicRepository<Right> {
 
         ArrayList<Right> rightList = new ArrayList<>();
         while (resultSet.next()) {
-            String id = resultSet.getString("id");
-            String name = resultSet.getString("name");
+            int id = resultSet.getInt("id");
+            String shortname = resultSet.getString("shortname");
+            String fullname = resultSet.getString("fullname");
             String url = resultSet.getString("url");
 
-            rightList.add(new Right(id, name, url));
+            rightList.add(new Right(id, shortname, fullname, url));
         }
 
         return rightList.toArray(new Right[0]);
