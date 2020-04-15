@@ -27,6 +27,7 @@ class Application {
         final ObjectMapper mapper = new ObjectMapper();
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
         FormatRepository formatRepository = new FormatRepository(connection);
+        LanguageRepository languageRepository = new LanguageRepository(connection);
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
         PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
         RightRepository rightRepository = new RightRepository(connection);
@@ -34,6 +35,7 @@ class Application {
 
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
         server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
+        server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));
         server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
