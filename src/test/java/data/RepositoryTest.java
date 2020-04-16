@@ -150,4 +150,16 @@ public class RepositoryTest {
         LanguageWrittenIn firstLanguage = repository.getById(firstLanguageId);
         assertNotNull(firstLanguage);
     }
+
+    @Test
+    public void testUnitCategoryEndpoints() throws SQLException {
+
+        UnitCategoryRepository repository = new UnitCategoryRepository(connection);
+        UnitCategory[] categories = repository.getAll();
+        assertTrue(categories.length > 0);
+
+        int firstCategoryId = categories[0].getId();
+        UnitCategory firstCategory = repository.getById(firstCategoryId);
+        assertNotNull(firstCategory);
+    }
 }
