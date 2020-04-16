@@ -1,6 +1,7 @@
 CREATE TABLE unit_category (
     id INTEGER not NULL,
-    name VARCHAR(255) not NULL);
+    name VARCHAR(255) not NULL,
+    PRIMARY KEY(id));
 
 INSERT INTO unit_category (id, name) VALUES (1, 'Number Content (count/mass)');
 INSERT INTO unit_category (id, name) VALUES (2, 'Number Concentration (count/vol)');

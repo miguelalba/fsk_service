@@ -3,7 +3,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
-import domain.UnitCategory;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,6 +30,7 @@ class Application {
         final ObjectMapper mapper = new ObjectMapper();
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
         FormatRepository formatRepository = new FormatRepository(connection);
+        HazardTypeRepository hazardTypeRepository = new HazardTypeRepository(connection);
         LanguageRepository languageRepository = new LanguageRepository(connection);
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
@@ -42,6 +42,7 @@ class Application {
 
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
         server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
+        server.createContext("/api/hazard_type", new BasicHandler(mapper, hazardTypeRepository));
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));

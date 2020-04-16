@@ -162,4 +162,16 @@ public class RepositoryTest {
         UnitCategory firstCategory = repository.getById(firstCategoryId);
         assertNotNull(firstCategory);
     }
+
+    @Test
+    public void testHazardTypeEndpoints() throws SQLException {
+
+        HazardTypeRepository repository = new HazardTypeRepository(connection);
+        HazardType[] types = repository.getAll();
+        assertTrue(types.length > 0);
+
+        int firstTypeId = types[0].getId();
+        HazardType firstType = repository.getById(firstTypeId);
+        assertNotNull(firstType);
+    }
 }
