@@ -33,6 +33,7 @@ class Application {
         HazardTypeRepository hazardTypeRepository = new HazardTypeRepository(connection);
         LanguageRepository languageRepository = new LanguageRepository(connection);
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
+        PackagingRepository packagingRepository = new PackagingRepository(connection);
         ProductMatrixRepository productMatrixRepository = new ProductMatrixRepository(connection);
         ProductionMethodRepository productionMethodRepository = new ProductionMethodRepository(connection);
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
@@ -47,6 +48,7 @@ class Application {
         server.createContext("/api/hazard_type", new BasicHandler(mapper, hazardTypeRepository));
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
+        server.createContext("/api/packaging", new BasicHandler(mapper, packagingRepository));
         server.createContext("/api/product_matrix", new BasicHandler(mapper, productMatrixRepository));
         server.createContext("/api/production_method", new BasicHandler(mapper, productionMethodRepository));
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));

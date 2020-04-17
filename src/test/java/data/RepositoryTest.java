@@ -198,4 +198,16 @@ public class RepositoryTest {
         ProductionMethod firstMethod = repository.getById(firstMethodId);
         assertNotNull(firstMethod);
     }
+
+    @Test
+    public void testPackagingEndpoints() throws SQLException {
+
+        PackagingRepository repository = new PackagingRepository(connection);
+        Packaging[] packagings = repository.getAll();
+        assertTrue(packagings.length > 0);
+
+        int firstPackagingId = packagings[0].getId();
+        Packaging firstPackaging = repository.getById(firstPackagingId);
+        assertNotNull(firstPackaging);
+    }
 }
