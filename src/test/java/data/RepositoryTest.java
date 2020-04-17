@@ -174,4 +174,16 @@ public class RepositoryTest {
         HazardType firstType = repository.getById(firstTypeId);
         assertNotNull(firstType);
     }
+
+    @Test
+    public void testProductMatrixEndpoints() throws SQLException {
+
+        ProductMatrixRepository repository = new ProductMatrixRepository(connection);
+        ProductMatrix[] matrices = repository.getAll();
+        assertTrue(matrices.length > 0);
+
+        int firstMatrixId = matrices[0].getId();
+        ProductMatrix firstMatrix = repository.getById(firstMatrixId);
+        assertNotNull(firstMatrix);
+    }
 }
