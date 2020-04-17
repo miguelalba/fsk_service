@@ -186,4 +186,16 @@ public class RepositoryTest {
         ProductMatrix firstMatrix = repository.getById(firstMatrixId);
         assertNotNull(firstMatrix);
     }
+
+    @Test
+    public void testProductionMethodEndpoints() throws SQLException {
+
+        ProductionMethodRepository repository = new ProductionMethodRepository(connection);
+        ProductionMethod[] methods = repository.getAll();
+        assertTrue(methods.length > 0);
+
+        int firstMethodId = methods[0].getId();
+        ProductionMethod firstMethod = repository.getById(firstMethodId);
+        assertNotNull(firstMethod);
+    }
 }
