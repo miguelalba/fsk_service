@@ -306,4 +306,16 @@ public class RepositoryTest {
         SamplingPoint firstPoint = repository.getById(firstPointId);
         assertNotNull(firstPoint);
     }
+
+    @Test
+    public void testParameterSubjectEndpoints() throws SQLException {
+
+        ParameterSubjectRepository repository = new ParameterSubjectRepository(connection);
+        ParameterSubject[] subjects = repository.getAll();
+        assertTrue(subjects.length > 0);
+
+        int firstSubjectId = subjects[0].getId();
+        ParameterSubject firstSubject = repository.getById(firstSubjectId);
+        assertNotNull(firstSubject);
+    }
 }
