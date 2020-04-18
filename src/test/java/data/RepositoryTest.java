@@ -270,4 +270,16 @@ public class RepositoryTest {
         Country firstCountry = repository.getById(firstCountryId);
         assertNotNull(firstCountry);
     }
+
+    @Test
+    public void testPopulationEndpoints() throws SQLException {
+
+        PopulationRepository repository = new PopulationRepository(connection);
+        Population[] populations = repository.getAll();
+        assertTrue(populations.length > 0);
+
+        int firstPopulationId = populations[0].getId();
+        Population firstPopulation = repository.getById(firstPopulationId);
+        assertNotNull(firstPopulation);
+    }
 }

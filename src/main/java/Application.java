@@ -3,6 +3,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
+import domain.Population;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,6 +38,7 @@ class Application {
         LanguageRepository languageRepository = new LanguageRepository(connection);
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
         PackagingRepository packagingRepository = new PackagingRepository(connection);
+        PopulationRepository populationRepository = new PopulationRepository(connection);
         ProductMatrixRepository productMatrixRepository = new ProductMatrixRepository(connection);
         ProductTreatmentRepository productTreatmentRepository = new ProductTreatmentRepository(connection);
         ProductionMethodRepository productionMethodRepository = new ProductionMethodRepository(connection);
@@ -57,6 +59,7 @@ class Application {
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
         server.createContext("/api/packaging", new BasicHandler(mapper, packagingRepository));
+        server.createContext("/api/population", new BasicHandler(mapper, populationRepository));
         server.createContext("/api/product_matrix", new BasicHandler(mapper, productMatrixRepository));
         server.createContext("/api/product_treatment", new BasicHandler(mapper, productTreatmentRepository));
         server.createContext("/api/production_method", new BasicHandler(mapper, productionMethodRepository));
