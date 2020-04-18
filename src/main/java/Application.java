@@ -39,6 +39,7 @@ class Application {
         HazardTypeRepository hazardTypeRepository = new HazardTypeRepository(connection);
         LanguageRepository languageRepository = new LanguageRepository(connection);
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
+        ModelEquationClassRepository modelEquationClassRepository = new ModelEquationClassRepository(connection);
         PackagingRepository packagingRepository = new PackagingRepository(connection);
         ParameterSourceRepository parameterSourceRepository = new ParameterSourceRepository(connection);
         ParameterSubjectRepository parameterSubjectRepository = new ParameterSubjectRepository(connection);
@@ -64,6 +65,7 @@ class Application {
         server.createContext("/api/hazard_type", new BasicHandler(mapper, hazardTypeRepository));
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
+        server.createContext("/api/model_equation_class", new BasicHandler(mapper, modelEquationClassRepository));
         server.createContext("/api/packaging", new BasicHandler(mapper, packagingRepository));
         server.createContext("/api/parameter_source", new BasicHandler(mapper, parameterSourceRepository));
         server.createContext("/api/parameter_subject", new BasicHandler(mapper, parameterSubjectRepository));

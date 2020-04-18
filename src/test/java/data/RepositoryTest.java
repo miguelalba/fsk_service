@@ -330,4 +330,16 @@ public class RepositoryTest {
         ParameterSubject firstSubject = repository.getById(firstSubjectId);
         assertNotNull(firstSubject);
     }
+
+    @Test
+    public void testModelEquationClassEndpoints() throws SQLException {
+
+        ModelEquationClassRepository repository = new ModelEquationClassRepository(connection);
+        ModelEquationClass[] classes = repository.getAll();
+        assertTrue(classes.length > 0);
+
+        int firstClassId = classes[0].getId();
+        ModelEquationClass firstClass = repository.getById(firstClassId);
+        assertNotNull(firstClass);
+    }
 }
