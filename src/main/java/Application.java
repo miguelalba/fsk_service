@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -28,6 +29,8 @@ class Application {
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
 
         final ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
         CountryRepository countryRepository = new CountryRepository(connection);
         FishAreaRepository fishAreaRepository = new FishAreaRepository(connection);
