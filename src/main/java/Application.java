@@ -3,7 +3,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
-import domain.Population;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -46,6 +45,7 @@ class Application {
         PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
         RegionRepository regionRepository = new RegionRepository(connection);
         RightRepository rightRepository = new RightRepository(connection);
+        SamplingMethodRepository samplingMethodRepository = new SamplingMethodRepository(connection);
         SoftwareRepository softwareRepository = new SoftwareRepository(connection);
         SourceRepository sourceRepository = new SourceRepository(connection);
         UnitCategoryRepository unitCategoryRepository = new UnitCategoryRepository(connection);
@@ -67,6 +67,7 @@ class Application {
         server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
         server.createContext("/api/region", new BasicHandler(mapper, regionRepository));
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
+        server.createContext("/api/sampling_method", new BasicHandler(mapper, samplingMethodRepository));
         server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
         server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
         server.createContext("/api/unit_category", new BasicHandler(mapper, unitCategoryRepository));
