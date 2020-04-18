@@ -46,6 +46,7 @@ class Application {
         RegionRepository regionRepository = new RegionRepository(connection);
         RightRepository rightRepository = new RightRepository(connection);
         SamplingMethodRepository samplingMethodRepository = new SamplingMethodRepository(connection);
+        SamplingPointRepository samplingPointRepository = new SamplingPointRepository(connection);
         SoftwareRepository softwareRepository = new SoftwareRepository(connection);
         SourceRepository sourceRepository = new SourceRepository(connection);
         UnitCategoryRepository unitCategoryRepository = new UnitCategoryRepository(connection);
@@ -68,6 +69,7 @@ class Application {
         server.createContext("/api/region", new BasicHandler(mapper, regionRepository));
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
         server.createContext("/api/sampling_method", new BasicHandler(mapper, samplingMethodRepository));
+        server.createContext("/api/sampling_point", new BasicHandler(mapper, samplingPointRepository));
         server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
         server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
         server.createContext("/api/unit_category", new BasicHandler(mapper, unitCategoryRepository));

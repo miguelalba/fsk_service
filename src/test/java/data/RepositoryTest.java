@@ -294,4 +294,16 @@ public class RepositoryTest {
         SamplingMethod firstMethod = repository.getById(firstMethodId);
         assertNotNull(firstMethod);
     }
+
+    @Test
+    public void testSamplingPointEndpoints() throws SQLException {
+
+        SamplingPointRepository repository = new SamplingPointRepository(connection);
+        SamplingPoint[] points = repository.getAll();
+        assertTrue(points.length > 0);
+
+        int firstPointId = points[0].getId();
+        SamplingPoint firstPoint = repository.getById(firstPointId);
+        assertNotNull(firstPoint);
+    }
 }
