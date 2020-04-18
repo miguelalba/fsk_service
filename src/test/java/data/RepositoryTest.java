@@ -215,11 +215,23 @@ public class RepositoryTest {
     public void testProductTreatmentEndpoints() throws SQLException {
 
         ProductTreatmentRepository repository = new ProductTreatmentRepository(connection);
-        ProductTreatment[] products = repository.getAll();
-        assertTrue(products.length > 0);
+        ProductTreatment[] treatments = repository.getAll();
+        assertTrue(treatments.length > 0);
 
-        int firstProductId = products[0].getId();
-        ProductTreatment firstProduct = repository.getById(firstProductId);
-        assertNotNull(firstProduct);
+        int firstTreatmentId = treatments[0].getId();
+        ProductTreatment firstTreatment = repository.getById(firstTreatmentId);
+        assertNotNull(firstTreatment);
+    }
+
+    @Test
+    public void testOriginAreaEndpoints() throws SQLException {
+
+        OriginAreaRepository repository = new OriginAreaRepository(connection);
+        OriginArea[] areas = repository.getAll();
+        assertTrue(areas.length > 0);
+
+        int firstAreaId = areas[0].getId();
+        OriginArea firstArea = repository.getById(firstAreaId);
+        assertNotNull(firstAreaId);
     }
 }
