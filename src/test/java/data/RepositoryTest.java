@@ -232,6 +232,18 @@ public class RepositoryTest {
 
         int firstAreaId = areas[0].getId();
         OriginArea firstArea = repository.getById(firstAreaId);
-        assertNotNull(firstAreaId);
+        assertNotNull(firstArea);
+    }
+
+    @Test
+    public void testFishAreaEndpoints() throws SQLException {
+
+        FishAreaRepository repository = new FishAreaRepository(connection);
+        FishArea[] areas = repository.getAll();
+        assertTrue(areas.length > 0);
+
+        int firstAreaId = areas[0].getId();
+        FishArea firstArea = repository.getById(firstAreaId);
+        assertNotNull(firstArea);
     }
 }
