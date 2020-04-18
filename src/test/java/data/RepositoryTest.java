@@ -210,4 +210,16 @@ public class RepositoryTest {
         Packaging firstPackaging = repository.getById(firstPackagingId);
         assertNotNull(firstPackaging);
     }
+
+    @Test
+    public void testProductTreatmentEndpoints() throws SQLException {
+
+        ProductTreatmentRepository repository = new ProductTreatmentRepository(connection);
+        ProductTreatment[] products = repository.getAll();
+        assertTrue(products.length > 0);
+
+        int firstProductId = products[0].getId();
+        ProductTreatment firstProduct = repository.getById(firstProductId);
+        assertNotNull(firstProduct);
+    }
 }

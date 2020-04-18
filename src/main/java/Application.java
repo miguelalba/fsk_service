@@ -35,6 +35,7 @@ class Application {
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
         PackagingRepository packagingRepository = new PackagingRepository(connection);
         ProductMatrixRepository productMatrixRepository = new ProductMatrixRepository(connection);
+        ProductTreatmentRepository productTreatmentRepository = new ProductTreatmentRepository(connection);
         ProductionMethodRepository productionMethodRepository = new ProductionMethodRepository(connection);
         PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
         PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
@@ -50,6 +51,7 @@ class Application {
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
         server.createContext("/api/packaging", new BasicHandler(mapper, packagingRepository));
         server.createContext("/api/product_matrix", new BasicHandler(mapper, productMatrixRepository));
+        server.createContext("/api/product_treatment", new BasicHandler(mapper, productTreatmentRepository));
         server.createContext("/api/production_method", new BasicHandler(mapper, productionMethodRepository));
         server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));
         server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
