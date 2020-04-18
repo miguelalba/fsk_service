@@ -3,7 +3,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
-import domain.FishArea;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,6 +31,7 @@ class Application {
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
         FishAreaRepository fishAreaRepository = new FishAreaRepository(connection);
         FormatRepository formatRepository = new FormatRepository(connection);
+        HazardRepository hazardRepository = new HazardRepository(connection);
         HazardTypeRepository hazardTypeRepository = new HazardTypeRepository(connection);
         LanguageRepository languageRepository = new LanguageRepository(connection);
         LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
@@ -50,6 +50,7 @@ class Application {
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
         server.createContext("/api/fish_area", new BasicHandler(mapper, fishAreaRepository));
         server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
+        server.createContext("/api/hazard", new BasicHandler(mapper, hazardRepository));
         server.createContext("/api/hazard_type", new BasicHandler(mapper, hazardTypeRepository));
         server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
         server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));

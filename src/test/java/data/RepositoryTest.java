@@ -246,4 +246,16 @@ public class RepositoryTest {
         FishArea firstArea = repository.getById(firstAreaId);
         assertNotNull(firstArea);
     }
+
+    @Test
+    public void testHazardEndpoints() throws SQLException {
+
+        HazardRepository repository = new HazardRepository(connection);
+        Hazard[] hazards = repository.getAll();
+        assertTrue(hazards.length > 0);
+
+        int firstHazardId = hazards[0].getId();
+        Hazard firstHazard = repository.getById(firstHazardId);
+        assertNotNull(firstHazard);
+    }
 }
