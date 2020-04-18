@@ -308,6 +308,18 @@ public class RepositoryTest {
     }
 
     @Test
+    public void testParameterSourceEndpoints() throws SQLException {
+
+        ParameterSourceRepository repository = new ParameterSourceRepository(connection);
+        ParameterSource[] sources = repository.getAll();
+        assertTrue(sources.length > 0);
+
+        int firstSourceId = sources[0].getId();
+        ParameterSource firstSource = repository.getById(firstSourceId);
+        assertNotNull(firstSource);
+    }
+
+    @Test
     public void testParameterSubjectEndpoints() throws SQLException {
 
         ParameterSubjectRepository repository = new ParameterSubjectRepository(connection);
