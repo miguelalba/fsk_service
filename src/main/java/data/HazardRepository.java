@@ -1,7 +1,6 @@
 package data;
 
 import domain.Hazard;
-import domain.OriginArea;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

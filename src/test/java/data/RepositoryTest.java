@@ -224,15 +224,15 @@ public class RepositoryTest {
     }
 
     @Test
-    public void testOriginAreaEndpoints() throws SQLException {
+    public void testRegionEndpoints() throws SQLException {
 
-        OriginAreaRepository repository = new OriginAreaRepository(connection);
-        OriginArea[] areas = repository.getAll();
-        assertTrue(areas.length > 0);
+        RegionRepository repository = new RegionRepository(connection);
+        Region[] regions = repository.getAll();
+        assertTrue(regions.length > 0);
 
-        int firstAreaId = areas[0].getId();
-        OriginArea firstArea = repository.getById(firstAreaId);
-        assertNotNull(firstArea);
+        int firstRegionId = regions[0].getId();
+        Region firstRegion = repository.getById(firstRegionId);
+        assertNotNull(firstRegion);
     }
 
     @Test
