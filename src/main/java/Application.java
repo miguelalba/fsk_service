@@ -29,6 +29,7 @@ class Application {
 
         final ObjectMapper mapper = new ObjectMapper();
         AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
+        CountryRepository countryRepository = new CountryRepository(connection);
         FishAreaRepository fishAreaRepository = new FishAreaRepository(connection);
         FormatRepository formatRepository = new FormatRepository(connection);
         HazardRepository hazardRepository = new HazardRepository(connection);
@@ -48,6 +49,7 @@ class Application {
         UnitCategoryRepository unitCategoryRepository = new UnitCategoryRepository(connection);
 
         server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
+        server.createContext("/api/country", new BasicHandler(mapper, countryRepository));
         server.createContext("/api/fish_area", new BasicHandler(mapper, fishAreaRepository));
         server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
         server.createContext("/api/hazard", new BasicHandler(mapper, hazardRepository));

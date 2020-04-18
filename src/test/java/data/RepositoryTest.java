@@ -258,4 +258,16 @@ public class RepositoryTest {
         Hazard firstHazard = repository.getById(firstHazardId);
         assertNotNull(firstHazard);
     }
+
+    @Test
+    public void testCountryEndpoints() throws SQLException {
+
+        CountryRepository repository = new CountryRepository(connection);
+        Country[] countries = repository.getAll();
+        assertTrue(countries.length > 0);
+
+        int firstCountryId = countries[0].getId();
+        Country firstCountry = repository.getById(firstCountryId);
+        assertNotNull(firstCountry);
+    }
 }
