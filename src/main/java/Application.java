@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
-import domain.SamplingProgram;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,7 +28,8 @@ class Application {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 Files.delete(Paths.get("test.mv.db"));
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }));
 
         int serverPort = 8000;
@@ -38,62 +38,36 @@ class Application {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        AvailabilityRepository availabilityRepository = new AvailabilityRepository(connection);
-        CountryRepository countryRepository = new CountryRepository(connection);
-        FishAreaRepository fishAreaRepository = new FishAreaRepository(connection);
-        FormatRepository formatRepository = new FormatRepository(connection);
-        HazardRepository hazardRepository = new HazardRepository(connection);
-        HazardTypeRepository hazardTypeRepository = new HazardTypeRepository(connection);
-        LanguageRepository languageRepository = new LanguageRepository(connection);
-        LanguageWrittenInRepository languageWrittenInRepository = new LanguageWrittenInRepository(connection);
-        ModelEquationClassRepository modelEquationClassRepository = new ModelEquationClassRepository(connection);
-        PackagingRepository packagingRepository = new PackagingRepository(connection);
-        ParameterSourceRepository parameterSourceRepository = new ParameterSourceRepository(connection);
-        ParameterSubjectRepository parameterSubjectRepository = new ParameterSubjectRepository(connection);
-        PopulationRepository populationRepository = new PopulationRepository(connection);
-        ProductMatrixRepository productMatrixRepository = new ProductMatrixRepository(connection);
-        ProductTreatmentRepository productTreatmentRepository = new ProductTreatmentRepository(connection);
-        ProductionMethodRepository productionMethodRepository = new ProductionMethodRepository(connection);
-        PublicationStatusRepository statusRepository = new PublicationStatusRepository(connection);
-        PublicationTypeRepository publicationTypeRepository = new PublicationTypeRepository(connection);
-        RegionRepository regionRepository = new RegionRepository(connection);
-        RightRepository rightRepository = new RightRepository(connection);
-        SamplingMethodRepository samplingMethodRepository = new SamplingMethodRepository(connection);
-        SamplingPointRepository samplingPointRepository = new SamplingPointRepository(connection);
-        SamplingProgramRepository samplingProgramRepository = new SamplingProgramRepository(connection);
-        SamplingStrategyRepository samplingStrategyRepository = new SamplingStrategyRepository(connection);
-        SoftwareRepository softwareRepository = new SoftwareRepository(connection);
-        SourceRepository sourceRepository = new SourceRepository(connection);
-        UnitCategoryRepository unitCategoryRepository = new UnitCategoryRepository(connection);
+        HashMap<String, BasicRepository<?>> contexts = new HashMap<>();
+        contexts.put("/api/availability", new AvailabilityRepository(connection));
+        contexts.put("/api/country", new CountryRepository(connection));
+        contexts.put("/api/fish_area", new FishAreaRepository(connection));
+        contexts.put("/api/format", new FormatRepository(connection));
+        contexts.put("/api/hazard", new HazardRepository(connection));
+        contexts.put("/api/hazard_type", new HazardTypeRepository(connection));
+        contexts.put("/api/language", new LanguageRepository(connection));
+        contexts.put("/api/language_written_in", new LanguageWrittenInRepository(connection));
+        contexts.put("/api/moel_equation_class", new ModelEquationClassRepository(connection));
+        contexts.put("/api/packaging", new PackagingRepository(connection));
+        contexts.put("/api/parameter_source", new ParameterSourceRepository(connection));
+        contexts.put("/api/parameter_subject", new ParameterSubjectRepository(connection));
+        contexts.put("/api/population", new PopulationRepository(connection));
+        contexts.put("/api/product_matrix", new ProductMatrixRepository(connection));
+        contexts.put("/api/product_treatment", new ProductTreatmentRepository(connection));
+        contexts.put("/api/production_method", new ProductionMethodRepository(connection));
+        contexts.put("/api/publication_status", new PublicationStatusRepository(connection));
+        contexts.put("/api/publication_type", new PublicationTypeRepository(connection));
+        contexts.put("/api/region", new RegionRepository(connection));
+        contexts.put("/api/right", new RightRepository(connection));
+        contexts.put("/api/sampling_method", new SamplingMethodRepository(connection));
+        contexts.put("/api/sampling_point", new SamplingPointRepository(connection));
+        contexts.put("/api/sampling_program", new SamplingProgramRepository(connection));
+        contexts.put("/api/sampling_strategy", new SamplingStrategyRepository(connection));
+        contexts.put("/api/software", new SoftwareRepository(connection));
+        contexts.put("/api/source", new SourceRepository(connection));
+        contexts.put("/api/unit_category", new UnitCategoryRepository(connection));
 
-        server.createContext("/api/availability", new BasicHandler(mapper, availabilityRepository));
-        server.createContext("/api/country", new BasicHandler(mapper, countryRepository));
-        server.createContext("/api/fish_area", new BasicHandler(mapper, fishAreaRepository));
-        server.createContext("/api/format", new BasicHandler(mapper, formatRepository));
-        server.createContext("/api/hazard", new BasicHandler(mapper, hazardRepository));
-        server.createContext("/api/hazard_type", new BasicHandler(mapper, hazardTypeRepository));
-        server.createContext("/api/language", new BasicHandler(mapper, languageRepository));
-        server.createContext("/api/language_written_in", new BasicHandler(mapper, languageWrittenInRepository));
-        server.createContext("/api/model_equation_class", new BasicHandler(mapper, modelEquationClassRepository));
-        server.createContext("/api/packaging", new BasicHandler(mapper, packagingRepository));
-        server.createContext("/api/parameter_source", new BasicHandler(mapper, parameterSourceRepository));
-        server.createContext("/api/parameter_subject", new BasicHandler(mapper, parameterSubjectRepository));
-        server.createContext("/api/population", new BasicHandler(mapper, populationRepository));
-        server.createContext("/api/product_matrix", new BasicHandler(mapper, productMatrixRepository));
-        server.createContext("/api/product_treatment", new BasicHandler(mapper, productTreatmentRepository));
-        server.createContext("/api/production_method", new BasicHandler(mapper, productionMethodRepository));
-        server.createContext("/api/publicationstatus", new BasicHandler(mapper, statusRepository));
-        server.createContext("/api/publicationtype", new BasicHandler(mapper, publicationTypeRepository));
-        server.createContext("/api/region", new BasicHandler(mapper, regionRepository));
-        server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
-        server.createContext("/api/sampling_method", new BasicHandler(mapper, samplingMethodRepository));
-        server.createContext("/api/sampling_point", new BasicHandler(mapper, samplingPointRepository));
-        server.createContext("/api/sampling_program", new BasicHandler(mapper, samplingProgramRepository));
-        server.createContext("/api/sampling_strategy", new BasicHandler(mapper, samplingStrategyRepository));
-        server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
-        server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
-        server.createContext("/api/unit_category", new BasicHandler(mapper, unitCategoryRepository));
-
+        contexts.forEach((context, repository) -> server.createContext(context, new BasicHandler(mapper, repository)));
         server.setExecutor(null); // Creates a default executor
         server.start();
     }
