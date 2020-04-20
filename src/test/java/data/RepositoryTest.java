@@ -354,4 +354,16 @@ public class RepositoryTest {
         SamplingStrategy firstStrategy = repository.getById(firstStrategyId);
         assertNotNull(firstStrategy);
     }
+
+    @Test
+    public void testSamplingProgramEndpoints() throws SQLException {
+
+        SamplingProgramRepository repository = new SamplingProgramRepository(connection);
+        SamplingProgram[] programs = repository.getAll();
+        assertTrue(programs.length > 0);
+
+        int firstProgramId = programs[0].getId();
+        SamplingProgram firstProgram = repository.getById(firstProgramId);
+        assertNotNull(firstProgram);
+    }
 }

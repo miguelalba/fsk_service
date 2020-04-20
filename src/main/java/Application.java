@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import data.*;
+import domain.SamplingProgram;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -59,6 +60,7 @@ class Application {
         RightRepository rightRepository = new RightRepository(connection);
         SamplingMethodRepository samplingMethodRepository = new SamplingMethodRepository(connection);
         SamplingPointRepository samplingPointRepository = new SamplingPointRepository(connection);
+        SamplingProgramRepository samplingProgramRepository = new SamplingProgramRepository(connection);
         SamplingStrategyRepository samplingStrategyRepository = new SamplingStrategyRepository(connection);
         SoftwareRepository softwareRepository = new SoftwareRepository(connection);
         SourceRepository sourceRepository = new SourceRepository(connection);
@@ -86,6 +88,7 @@ class Application {
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
         server.createContext("/api/sampling_method", new BasicHandler(mapper, samplingMethodRepository));
         server.createContext("/api/sampling_point", new BasicHandler(mapper, samplingPointRepository));
+        server.createContext("/api/sampling_program", new BasicHandler(mapper, samplingProgramRepository));
         server.createContext("/api/sampling_strategy", new BasicHandler(mapper, samplingStrategyRepository));
         server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
         server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
