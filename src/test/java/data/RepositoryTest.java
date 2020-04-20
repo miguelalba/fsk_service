@@ -366,4 +366,16 @@ public class RepositoryTest {
         SamplingProgram firstProgram = repository.getById(firstProgramId);
         assertNotNull(firstProgram);
     }
+
+    @Test
+    public void testLaboratoryAccreditationEndpoints() throws SQLException {
+
+        LaboratoryAccreditationRepository repository = new LaboratoryAccreditationRepository(connection);
+        LaboratoryAccreditation[] accreditations = repository.getAll();
+        assertTrue(accreditations.length > 0);
+
+        int firstAccreditationId = accreditations[0].getId();
+        LaboratoryAccreditation firstAccreditation = repository.getById(firstAccreditationId);
+        assertNotNull(firstAccreditation);
+    }
 }

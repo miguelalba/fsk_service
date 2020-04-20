@@ -22,15 +22,9 @@ class Application {
     public static void main(String[] args) throws IOException, SQLException {
 
         // Starts DB
+        Files.deleteIfExists(Paths.get("test.mv.db"));
         final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
         loadInitialData(connection);
-        // Remove DB file on shutdown
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                Files.delete(Paths.get("test.mv.db"));
-            } catch (IOException ignored) {
-            }
-        }));
 
         int serverPort = 8000;
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
@@ -45,6 +39,7 @@ class Application {
         contexts.put("/api/format", new FormatRepository(connection));
         contexts.put("/api/hazard", new HazardRepository(connection));
         contexts.put("/api/hazard_type", new HazardTypeRepository(connection));
+        contexts.put("/api/laboratory_accreditation", new LaboratoryAccreditationRepository(connection));
         contexts.put("/api/language", new LanguageRepository(connection));
         contexts.put("/api/language_written_in", new LanguageWrittenInRepository(connection));
         contexts.put("/api/moel_equation_class", new ModelEquationClassRepository(connection));
