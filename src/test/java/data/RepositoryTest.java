@@ -342,4 +342,16 @@ public class RepositoryTest {
         ModelEquationClass firstClass = repository.getById(firstClassId);
         assertNotNull(firstClass);
     }
+
+    @Test
+    public void testSamplingStrategyEndpoints() throws SQLException {
+
+        SamplingStrategyRepository repository = new SamplingStrategyRepository(connection);
+        SamplingStrategy[] strategies = repository.getAll();
+        assertTrue(strategies.length > 0);
+
+        int firstStrategyId = strategies[0].getId();
+        SamplingStrategy firstStrategy = repository.getById(firstStrategyId);
+        assertNotNull(firstStrategy);
+    }
 }

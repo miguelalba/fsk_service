@@ -24,6 +24,12 @@ class Application {
         // Starts DB
         final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
         loadInitialData(connection);
+        // Remove DB file on shutdown
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                Files.delete(Paths.get("test.mv.db"));
+            } catch (IOException ignored) {}
+        }));
 
         int serverPort = 8000;
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
@@ -53,6 +59,7 @@ class Application {
         RightRepository rightRepository = new RightRepository(connection);
         SamplingMethodRepository samplingMethodRepository = new SamplingMethodRepository(connection);
         SamplingPointRepository samplingPointRepository = new SamplingPointRepository(connection);
+        SamplingStrategyRepository samplingStrategyRepository = new SamplingStrategyRepository(connection);
         SoftwareRepository softwareRepository = new SoftwareRepository(connection);
         SourceRepository sourceRepository = new SourceRepository(connection);
         UnitCategoryRepository unitCategoryRepository = new UnitCategoryRepository(connection);
@@ -79,6 +86,7 @@ class Application {
         server.createContext("/api/right", new BasicHandler(mapper, rightRepository));
         server.createContext("/api/sampling_method", new BasicHandler(mapper, samplingMethodRepository));
         server.createContext("/api/sampling_point", new BasicHandler(mapper, samplingPointRepository));
+        server.createContext("/api/sampling_strategy", new BasicHandler(mapper, samplingStrategyRepository));
         server.createContext("/api/software", new BasicHandler(mapper, softwareRepository));
         server.createContext("/api/source", new BasicHandler(mapper, sourceRepository));
         server.createContext("/api/unit_category", new BasicHandler(mapper, unitCategoryRepository));
