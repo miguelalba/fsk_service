@@ -62,6 +62,7 @@ class Application {
         contexts.put("/api/sampling_strategy", new SamplingStrategyRepository(connection));
         contexts.put("/api/software", new SoftwareRepository(connection));
         contexts.put("/api/source", new SourceRepository(connection));
+        contexts.put("/api/status", new StatusRepository(connection));
         contexts.put("/api/unit", new UnitRepository(connection));
         contexts.put("/api/unit_category", new UnitCategoryRepository(connection));
 

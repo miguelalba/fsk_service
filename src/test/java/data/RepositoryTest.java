@@ -426,4 +426,16 @@ public class RepositoryTest {
         Unit firstUnit = repository.getById(firstUnitId);
         assertNotNull(firstUnit);
     }
+
+    @Test
+    public void testStatusEndpoints() throws SQLException {
+
+        StatusRepository repository = new StatusRepository(connection);
+        Status[] statuses = repository.getAll();
+        assertTrue(statuses.length > 0);
+
+        int firstStatusId = statuses[0].getId();
+        Status firstStatus = repository.getById(firstStatusId);
+        assertNotNull(firstStatus);
+    }
 }
