@@ -438,4 +438,16 @@ public class RepositoryTest {
         Status firstStatus = repository.getById(firstStatusId);
         assertNotNull(firstStatus);
     }
+
+    @Test
+    public void testModelClassEndpoints() throws SQLException {
+
+        ModelClassRepository repository = new ModelClassRepository(connection);
+        ModelClass[] classes = repository.getAll();
+        assertTrue(classes.length > 0);
+
+        int firstClassId = classes[0].getId();
+        ModelClass firstClass = repository.getById(firstClassId);
+        assertNotNull(firstClass);
+    }
 }

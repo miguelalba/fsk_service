@@ -43,7 +43,8 @@ class Application {
         contexts.put("/api/laboratory_accreditation", new LaboratoryAccreditationRepository(connection));
         contexts.put("/api/language", new LanguageRepository(connection));
         contexts.put("/api/language_written_in", new LanguageWrittenInRepository(connection));
-        contexts.put("/api/moel_equation_class", new ModelEquationClassRepository(connection));
+        contexts.put("/api/model_class", new ModelClassRepository(connection));
+        contexts.put("/api/model_equation_class", new ModelEquationClassRepository(connection));
         contexts.put("/api/packaging", new PackagingRepository(connection));
         contexts.put("/api/parameter_distribution", new ParameterDistributionRepository(connection));
         contexts.put("/api/parameter_source", new ParameterSourceRepository(connection));
