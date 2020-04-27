@@ -414,4 +414,16 @@ public class RepositoryTest {
         IndSum firstSum = repository.getById(firstSumId);
         assertNotNull(firstSum);
     }
+
+    @Test
+    public void testUnitEndpoints() throws SQLException {
+
+        UnitRepository repository = new UnitRepository(connection);
+        Unit[] units = repository.getAll();
+        assertTrue(units.length > 0);
+
+        int firstUnitId = units[0].getId();
+        Unit firstUnit = repository.getById(firstUnitId);
+        assertNotNull(firstUnit);
+    }
 }

@@ -62,6 +62,7 @@ class Application {
         contexts.put("/api/sampling_strategy", new SamplingStrategyRepository(connection));
         contexts.put("/api/software", new SoftwareRepository(connection));
         contexts.put("/api/source", new SourceRepository(connection));
+        contexts.put("/api/unit", new UnitRepository(connection));
         contexts.put("/api/unit_category", new UnitCategoryRepository(connection));
 
         contexts.forEach((context, repository) -> server.createContext(context, new BasicHandler(mapper, repository)));
@@ -75,6 +76,7 @@ class Application {
 
         Files.list(Paths.get(dataFolder)).forEach(file -> {
             try {
+                System.out.println("Loading initial data: " + file.getFileName());
                 String script = new String(Files.readAllBytes(file));
                 Statement statement = connection.createStatement();
                 statement.execute(script);
