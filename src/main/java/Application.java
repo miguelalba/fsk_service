@@ -22,7 +22,6 @@ class Application {
     public static void main(String[] args) throws IOException, SQLException {
 
         // Starts DB
-        Files.deleteIfExists(Paths.get("test.mv.db"));
         final Connection connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
         loadInitialData(connection);
 
@@ -34,16 +33,19 @@ class Application {
 
         HashMap<String, BasicRepository<?>> contexts = new HashMap<>();
         contexts.put("/api/availability", new AvailabilityRepository(connection));
+        contexts.put("/api/collection_tool", new CollectionToolRepository(connection));
         contexts.put("/api/country", new CountryRepository(connection));
         contexts.put("/api/fish_area", new FishAreaRepository(connection));
         contexts.put("/api/format", new FormatRepository(connection));
         contexts.put("/api/hazard", new HazardRepository(connection));
         contexts.put("/api/hazard_type", new HazardTypeRepository(connection));
+        contexts.put("/api/ind_sum", new IndSumRepository(connection));
         contexts.put("/api/laboratory_accreditation", new LaboratoryAccreditationRepository(connection));
         contexts.put("/api/language", new LanguageRepository(connection));
         contexts.put("/api/language_written_in", new LanguageWrittenInRepository(connection));
         contexts.put("/api/moel_equation_class", new ModelEquationClassRepository(connection));
         contexts.put("/api/packaging", new PackagingRepository(connection));
+        contexts.put("/api/parameter_distribution", new ParameterDistributionRepository(connection));
         contexts.put("/api/parameter_source", new ParameterSourceRepository(connection));
         contexts.put("/api/parameter_subject", new ParameterSubjectRepository(connection));
         contexts.put("/api/population", new PopulationRepository(connection));

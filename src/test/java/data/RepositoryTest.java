@@ -378,4 +378,40 @@ public class RepositoryTest {
         LaboratoryAccreditation firstAccreditation = repository.getById(firstAccreditationId);
         assertNotNull(firstAccreditation);
     }
+
+    @Test
+    public void testParameterDistributionEndpoints() throws SQLException {
+
+        ParameterDistributionRepository repository = new ParameterDistributionRepository(connection);
+        ParameterDistribution[] distributions = repository.getAll();
+        assertTrue(distributions.length > 0);
+
+        int firstDistributionId = distributions[0].getId();
+        ParameterDistribution firstDistribution = repository.getById(firstDistributionId);
+        assertNotNull(firstDistribution);
+    }
+
+    @Test
+    public void testCollectionToolEndpoints() throws SQLException {
+
+        CollectionToolRepository repository = new CollectionToolRepository(connection);
+        CollectionTool[] tools = repository.getAll();
+        assertTrue(tools.length > 0);
+
+        int firstToolId = tools[0].getId();
+        CollectionTool firstTool = repository.getById(firstToolId);
+        assertNotNull(firstTool);
+    }
+
+    @Test
+    public void testIndSumEndpoints() throws SQLException {
+
+        IndSumRepository repository = new IndSumRepository(connection);
+        IndSum[] sums = repository.getAll();
+        assertTrue(sums.length > 0);
+
+        int firstSumId = sums[0].getId();
+        IndSum firstSum = repository.getById(firstSumId);
+        assertNotNull(firstSum);
+    }
 }
