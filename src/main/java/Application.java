@@ -115,10 +115,8 @@ class Application {
                     }
                 }
             } else {
-                try {
-                    try (OutputStream output = exchange.getResponseBody()) {
-                        mapper.writeValue(output, repository.getAll());
-                    }
+                try (OutputStream output = exchange.getResponseBody()) {
+                    mapper.writeValue(output, repository.getAll());
                 } catch (SQLException exception) {
                     exception.printStackTrace(); // TODO: ...
                 }
