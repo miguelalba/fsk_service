@@ -450,4 +450,16 @@ public class RepositoryTest {
         ModelClass firstClass = repository.getById(firstClassId);
         assertNotNull(firstClass);
     }
+
+    @Test
+    public void testModelSubclassEndpoints() throws SQLException {
+
+        ModelSubclassRepository repository = new ModelSubclassRepository(connection);
+        ModelSubclass[] subclasses = repository.getAll();
+        assertTrue(subclasses.length > 0);
+
+        int firstClassId = subclasses[0].getId();
+        ModelSubclass firstClass = repository.getById(firstClassId);
+        assertNotNull(firstClass);
+    }
 }

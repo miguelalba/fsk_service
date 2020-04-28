@@ -45,6 +45,7 @@ class Application {
         contexts.put("/api/language_written_in", new LanguageWrittenInRepository(connection));
         contexts.put("/api/model_class", new ModelClassRepository(connection));
         contexts.put("/api/model_equation_class", new ModelEquationClassRepository(connection));
+        contexts.put("/api/model_subclass", new ModelSubclassRepository(connection));
         contexts.put("/api/packaging", new PackagingRepository(connection));
         contexts.put("/api/parameter_distribution", new ParameterDistributionRepository(connection));
         contexts.put("/api/parameter_source", new ParameterSourceRepository(connection));
