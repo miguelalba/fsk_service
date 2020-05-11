@@ -1,13 +1,12 @@
 package data;
 
-import domain.Availability;
-import domain.ParameterDistribution;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domain.ParameterDistribution;
 
 public class ParameterDistributionRepository implements BasicRepository<ParameterDistribution> {
 

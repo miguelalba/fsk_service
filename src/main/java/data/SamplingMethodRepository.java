@@ -1,13 +1,12 @@
 package data;
 
-import domain.Hazard;
-import domain.SamplingMethod;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domain.SamplingMethod;
 
 public class SamplingMethodRepository implements BasicRepository<SamplingMethod> {
 

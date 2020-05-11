@@ -1,13 +1,12 @@
 package data;
 
-import domain.SamplingProgram;
-import domain.SamplingStrategy;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domain.SamplingProgram;
 
 public class SamplingProgramRepository implements BasicRepository<SamplingProgram> {
 

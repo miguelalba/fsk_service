@@ -1,14 +1,13 @@
 package data;
 
-import domain.Availability;
-import domain.Unit;
-import domain.UnitCategory;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domain.Unit;
+import domain.UnitCategory;
 
 public class UnitRepository implements BasicRepository<Unit> {
 

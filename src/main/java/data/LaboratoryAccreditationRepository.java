@@ -1,13 +1,12 @@
 package data;
 
-import domain.LaboratoryAccreditation;
-import domain.Source;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import domain.LaboratoryAccreditation;
 
 public class LaboratoryAccreditationRepository implements BasicRepository<LaboratoryAccreditation> {
 
