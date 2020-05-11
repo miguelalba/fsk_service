@@ -1,22 +1,60 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import data.*;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import data.AvailabilityRepository;
+import data.BasicRepository;
+import data.CollectionToolRepository;
+import data.CountryRepository;
+import data.FishAreaRepository;
+import data.FormatRepository;
+import data.HazardRepository;
+import data.HazardTypeRepository;
+import data.IndSumRepository;
+import data.LaboratoryAccreditationRepository;
+import data.LanguageRepository;
+import data.LanguageWrittenInRepository;
+import data.ModelClassRepository;
+import data.ModelEquationClassRepository;
+import data.ModelSubclassRepository;
+import data.PackagingRepository;
+import data.ParameterDistributionRepository;
+import data.ParameterSourceRepository;
+import data.ParameterSubjectRepository;
+import data.PopulationRepository;
+import data.ProductMatrixRepository;
+import data.ProductTreatmentRepository;
+import data.ProductionMethodRepository;
+import data.PublicationStatusRepository;
+import data.PublicationTypeRepository;
+import data.RegionRepository;
+import data.RightRepository;
+import data.SamplingMethodRepository;
+import data.SamplingPointRepository;
+import data.SamplingProgramRepository;
+import data.SamplingStrategyRepository;
+import data.SoftwareRepository;
+import data.SourceRepository;
+import data.StatusRepository;
+import data.UnitCategoryRepository;
+import data.UnitRepository;
 
+@SuppressWarnings("restriction")
 class Application {
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -76,11 +114,11 @@ class Application {
     private static void loadInitialData(Connection connection) throws IOException {
 
         String dataFolder = Application.class.getResource("data/initialdata").getFile();
-
-        Files.list(Paths.get(dataFolder)).forEach(file -> {
+        
+        Arrays.stream((new File(dataFolder)).listFiles()).forEach(file -> {
             try {
-                System.out.println("Loading initial data: " + file.getFileName());
-                String script = new String(Files.readAllBytes(file));
+                System.out.println("Loading initial data: " + file.getName());
+                String script = new String(Files.readAllBytes(file.toPath()));
                 Statement statement = connection.createStatement();
                 statement.execute(script);
             } catch (IOException | SQLException e) {
@@ -103,6 +141,7 @@ class Application {
         public void handle(HttpExchange exchange) throws IOException {
             // length 0 to send a variable amount of data (1 or many items)
             exchange.sendResponseHeaders(200, 0);
+            exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
 
             String query = exchange.getRequestURI().getQuery();
             if (query != null) {
